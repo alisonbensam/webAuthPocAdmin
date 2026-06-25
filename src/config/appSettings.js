@@ -5,7 +5,7 @@
  */
 const config = {
   // Shared backend API base URL
-  API_BASE_URL: "http://localhost:8000",
+  API_BASE_URL: "https://webauthpocapi.onrender.com",
 
   // Admin API key (POC only — sent in the X-Admin-Key header).
   // In production this would NEVER live in frontend code; the admin panel
