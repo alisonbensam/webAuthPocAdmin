@@ -83,33 +83,33 @@ const App = () => {
   };
 
   // Action handlers — each refreshes the table after completion
-  const handleGenerateToken = async (employeeId) => {
+  const handleGenerateToken = async (deviceId) => {
     try {
-      const updated = await generateInvitationToken(employeeId);
-      notify(`Token generated for ${employeeId}: ${updated.invitation_token}`);
+      const updated = await generateInvitationToken(deviceId);
+      notify(`Token generated for ${deviceId}: ${updated.invitation_token}`);
       await loadDevices();
     } catch (err) {
-      notify(err.detail || `Failed to generate token for ${employeeId}`, "error");
+      notify(err.detail || `Failed to generate token for ${deviceId}`, "error");
     }
   };
 
-  const handleRevokeToken = async (employeeId) => {
+  const handleRevokeToken = async (deviceId) => {
     try {
-      await revokeInvitationToken(employeeId);
-      notify(`Invitation token revoked for ${employeeId}`);
+      await revokeInvitationToken(deviceId);
+      notify(`Invitation token revoked for ${deviceId}`);
       await loadDevices();
     } catch (err) {
-      notify(err.detail || `Failed to revoke token for ${employeeId}`, "error");
+      notify(err.detail || `Failed to revoke token for ${deviceId}`, "error");
     }
   };
 
-  const handleResetDevice = async (employeeId) => {
+  const handleResetDevice = async (deviceId) => {
     try {
-      await resetDevice(employeeId);
-      notify(`Device registration reset for ${employeeId}`);
+      await resetDevice(deviceId);
+      notify(`Device registration reset for ${deviceId}`);
       await loadDevices();
     } catch (err) {
-      notify(err.detail || `Failed to reset device for ${employeeId}`, "error");
+      notify(err.detail || `Failed to reset device for ${deviceId}`, "error");
     }
   };
 

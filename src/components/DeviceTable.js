@@ -1,7 +1,7 @@
 /**
- * DeviceTable — MUI Table displaying all employee/device records with action buttons.
+ * DeviceTable — MUI Table displaying all device records with action buttons.
  *
- * Columns: Location, Employee ID, Company Email, Registration Status, Credential ID,
+ * Columns: Location, Device ID, Company Email, Registration Status, Credential ID,
  *          Registered, Last Login, Invitation Token, Token Expiry
  *
  * Actions per row:
@@ -60,26 +60,26 @@ const DeviceTable = ({ devices, onGenerateToken, onRevokeToken, onResetDevice })
     }
   };
 
-  const handleAction = async (action, employeeId) => {
-    setBusyRow(`${employeeId}:${action}`);
+  const handleAction = async (action, deviceId) => {
+    setBusyRow(`${deviceId}:${action}`);
     try {
-      if (action === "gen") await onGenerateToken(employeeId);
-      else if (action === "revtoken") await onRevokeToken(employeeId);
-      else if (action === "reset") await onResetDevice(employeeId);
+      if (action === "gen") await onGenerateToken(deviceId);
+      else if (action === "revtoken") await onRevokeToken(deviceId);
+      else if (action === "reset") await onResetDevice(deviceId);
     } finally {
       setBusyRow(null);
     }
   };
 
-  const openConfirm = (action, employeeId, message) => {
-    setConfirmDialog({ action, employeeId, message });
+  const openConfirm = (action, deviceId, message) => {
+    setConfirmDialog({ action, deviceId, message });
   };
 
   const closeConfirm = () => setConfirmDialog(null);
 
   const confirmAndRun = () => {
     if (confirmDialog) {
-      handleAction(confirmDialog.action, confirmDialog.employeeId);
+      handleAction(confirmDialog.action, confirmDialog.deviceId);
     }
     closeConfirm();
   };
@@ -91,7 +91,7 @@ const DeviceTable = ({ devices, onGenerateToken, onRevokeToken, onResetDevice })
           <TableHead>
             <TableRow sx={{ "& th": { fontWeight: 600 } }}>
               <TableCell>Location</TableCell>
-              <TableCell>Employee ID</TableCell>
+              <TableCell>Device ID</TableCell>
               <TableCell>Company Email</TableCell>
               <TableCell>Registration Status</TableCell>
               <TableCell>Credential ID</TableCell>
@@ -106,9 +106,9 @@ const DeviceTable = ({ devices, onGenerateToken, onRevokeToken, onResetDevice })
             {devices.map((device) => {
               const hasToken = Boolean(device.invitation_token) && !device.invitation_token_used;
               return (
-                <TableRow key={device.employee_id} hover>
+                <TableRow key={device.device_id} hover>
                   <TableCell>{device.location}</TableCell>
-                  <TableCell sx={{ fontWeight: 500 }}>{device.employee_id}</TableCell>
+                  <TableCell sx={{ fontWeight: 500 }}>{device.device_id}</TableCell>
                   <TableCell sx={{ fontSize: 13 }}>{device.company_email}</TableCell>
                   <TableCell>
                     <Chip
@@ -143,12 +143,12 @@ const DeviceTable = ({ devices, onGenerateToken, onRevokeToken, onResetDevice })
                         color="primary"
                         size="small"
                         startIcon={
-                          busyRow === `${device.employee_id}:gen`
+                          busyRow === `${device.device_id}:gen`
                             ? <CircularProgress size={14} />
                             : <VpnKeyIcon />
                         }
                         disabled={busyRow !== null}
-                        onClick={() => handleAction("gen", device.employee_id)}
+                        onClick={() => handleAction("gen", device.device_id)}
                       >
                         Generate Token
                       </Button>
@@ -157,7 +157,7 @@ const DeviceTable = ({ devices, onGenerateToken, onRevokeToken, onResetDevice })
                         color="warning"
                         size="small"
                         startIcon={
-                          busyRow === `${device.employee_id}:revtoken`
+                          busyRow === `${device.device_id}:revtoken`
                             ? <CircularProgress size={14} />
                             : <KeyOffIcon />
                         }
@@ -165,8 +165,8 @@ const DeviceTable = ({ devices, onGenerateToken, onRevokeToken, onResetDevice })
                         onClick={() =>
                           openConfirm(
                             "revtoken",
-                            device.employee_id,
-                            `Revoke the invitation token for ${device.employee_id}? The employee will not be able to register until a new token is generated.`
+                            device.device_id,
+                            `Revoke the invitation token for ${device.device_id}? The device will not be able to register until a new token is generated.`
                           )
                         }
                       >
@@ -177,7 +177,7 @@ const DeviceTable = ({ devices, onGenerateToken, onRevokeToken, onResetDevice })
                         color="error"
                         size="small"
                         startIcon={
-                          busyRow === `${device.employee_id}:reset`
+                          busyRow === `${device.device_id}:reset`
                             ? <CircularProgress size={14} />
                             : <RestartAltIcon />
                         }
@@ -185,8 +185,8 @@ const DeviceTable = ({ devices, onGenerateToken, onRevokeToken, onResetDevice })
                         onClick={() =>
                           openConfirm(
                             "reset",
-                            device.employee_id,
-                            `Reset device registration for ${device.employee_id}? This will remove the passkey and session. The device must register again.`
+                            device.device_id,
+                            `Reset device registration for ${device.device_id}? This will remove the passkey and session. The device must register again.`
                           )
                         }
                       >

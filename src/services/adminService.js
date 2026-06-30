@@ -28,38 +28,38 @@ const adminRequest = async (endpoint, options = {}) => {
 };
 
 /**
- * Fetch all employee/device records.
+ * Fetch all device records.
  */
 export const listDevices = async () => {
   return await adminRequest("/admin/devices", { method: "GET" });
 };
 
 /**
- * Generate a one-time invitation token for an employee.
+ * Generate a one-time invitation token for a device.
  */
-export const generateInvitationToken = async (employeeId) => {
+export const generateInvitationToken = async (deviceId) => {
   return await adminRequest("/admin/generate-token", {
     method: "POST",
-    body: JSON.stringify({ employee_id: employeeId }),
+    body: JSON.stringify({ device_id: deviceId }),
   });
 };
 
 /**
  * Revoke an unused invitation token.
  */
-export const revokeInvitationToken = async (employeeId) => {
+export const revokeInvitationToken = async (deviceId) => {
   return await adminRequest("/admin/revoke-token", {
     method: "POST",
-    body: JSON.stringify({ employee_id: employeeId }),
+    body: JSON.stringify({ device_id: deviceId }),
   });
 };
 
 /**
  * Reset a device registration (clears credential, session, returns to not_registered).
  */
-export const resetDevice = async (employeeId) => {
+export const resetDevice = async (deviceId) => {
   return await adminRequest("/admin/reset-device", {
     method: "POST",
-    body: JSON.stringify({ employee_id: employeeId }),
+    body: JSON.stringify({ device_id: deviceId }),
   });
 };
