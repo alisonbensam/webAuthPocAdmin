@@ -5,7 +5,7 @@
  */
 const config = {
   // Shared backend API base URL
-  API_BASE_URL: "https://web-auth-poc-api.onrender.com",
+  API_BASE_URL: "https://web-auth-poc-api.vercel.app",
 
   // Admin API key (POC only — sent in the X-Admin-Key header).
   // In production this would NEVER live in frontend code; the admin panel
