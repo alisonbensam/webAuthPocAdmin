@@ -4,8 +4,7 @@
  * Points to the shared backend API.
  */
 const config = {
-  // Shared backend API base URL web-auth-poc-ui
-  API_BASE_URL: "https://web-auth-poc-api.onrender.com",
+  // Shared backend API base URL
 
   // Admin API key (POC only — sent in the X-Admin-Key header).
   // In production this would NEVER live in frontend code; the admin panel
